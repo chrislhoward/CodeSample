@@ -35,9 +35,7 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
         public DefaultWebApiRegistry() {
             Scan(
                 scan => {
-                    //scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
-                    //scan.With(new ControllerConvention());
                     scan.AssembliesFromApplicationBaseDirectory(x => x.FullName.Contains("StrategyCorps"));
 
                     //this provides bootstrap into the other assemblies that want or need a StartUp.cs
