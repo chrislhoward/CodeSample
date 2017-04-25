@@ -19,8 +19,7 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
 {
     using AutoMapper;
     using NLog;
-    using StrategyCorps.CodeSample.Interfaces.Core;
-    using StrategyCorps.SampleCode.WebApi.DependencyResolution.Conventions;
+    using CodeSample.Interfaces.Core;
     using StructureMap;
     using StructureMap.Graph.Scanning;
     using StructureMap.Pipeline;
