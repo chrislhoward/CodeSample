@@ -1,4 +1,5 @@
-﻿using StrategyCorps.CodeSample.Interfaces.Dispatchers;
+﻿using RestSharp;
+using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StructureMap;
 
 namespace StrategyCorps.CodeSample.Dispatchers.Registries
@@ -8,6 +9,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Registries
         public DefaultDispatchersRegistry()
         {
             For<ITelevisionDispatcher>().Use<TheMovieDbDispatcher>();
+            For<IRestClient>().Use<RestClient>();
         }
     }
 }
