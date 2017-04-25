@@ -1,7 +1,8 @@
-﻿using StrategyCorps.CodeSample.Interfaces.Core;
+﻿using StrategyCorps.CodeSample.Dispatchers.Registries;
+using StrategyCorps.CodeSample.Interfaces.Core;
 using StructureMap;
 
-namespace StrategyCorps.SampleCode.Dispatchers
+namespace StrategyCorps.CodeSample.Dispatchers
 {
     public class StartUp:IStartUp
     {
@@ -9,8 +10,7 @@ namespace StrategyCorps.SampleCode.Dispatchers
         {
             container.Configure(c =>
             {
-                //add registry here
-                //c.AddRegistry<DefaultDispatchersRegistry>();
+                c.AddRegistry<DefaultDispatchersRegistry>();
             });
 
             //add mapping profile here
