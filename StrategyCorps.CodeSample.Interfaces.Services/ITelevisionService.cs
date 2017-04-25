@@ -1,7 +1,9 @@
-﻿namespace StrategyCorps.CodeSample.Interfaces.Services
+﻿using StrategyCorps.CodeSample.Models;
+
+namespace StrategyCorps.CodeSample.Interfaces.Services
 {
     public interface ITelevisionService
     {
-        string GetTelevisionShowsByQuery(string query);
+        TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query);
     }
 }

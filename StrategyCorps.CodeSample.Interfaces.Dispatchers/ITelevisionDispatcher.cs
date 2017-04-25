@@ -1,7 +1,9 @@
-﻿namespace StrategyCorps.CodeSample.Interfaces.Dispatchers
+﻿using StrategyCorps.CodeSample.Models;
+
+namespace StrategyCorps.CodeSample.Interfaces.Dispatchers
 {
     public interface ITelevisionDispatcher
     {
-        string GetTelevisionShowsByQuery(string query);
+        TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query);
     }
 }

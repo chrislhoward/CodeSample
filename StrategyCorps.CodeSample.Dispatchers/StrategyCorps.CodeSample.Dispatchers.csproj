@@ -62,10 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\TheMovieDB\Model\GenreId.cs" />
+    <Compile Include="Providers\TheMovieDB\Model\TelevisionResult.cs" />
+    <Compile Include="Providers\TheMovieDB\Model\TelevisionSearchResponse.cs" />
     <Compile Include="Registries\DefaultDispatchersRegistry.cs" />
     <Compile Include="StartUp.cs" />
-    <Compile Include="TheMovieDBDispatcher.cs" />
-    <Compile Include="TheMovieDBDispatcherBase.cs" />
+    <Compile Include="Providers\TheMovieDB\TheMovieDBDispatcher.cs" />
+    <Compile Include="Providers\TheMovieDB\TheMovieDBDispatcherBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MappingProfiles\" />
-    <Folder Include="Providers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

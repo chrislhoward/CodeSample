@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace StrategyCorps.CodeSample.Dispatchers
+namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 {
     public class TheMovieDbDispatcherBase
     {

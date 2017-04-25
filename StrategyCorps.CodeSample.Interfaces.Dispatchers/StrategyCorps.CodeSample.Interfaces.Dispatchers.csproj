@@ -44,5 +44,11 @@
     <Compile Include="ITelevisionDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StrategyCorps.CodeSample.Models\StrategyCorps.CodeSample.Models.csproj">
+      <Project>{AC6AD03E-131E-49A3-BD46-76C7195FF461}</Project>
+      <Name>StrategyCorps.CodeSample.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

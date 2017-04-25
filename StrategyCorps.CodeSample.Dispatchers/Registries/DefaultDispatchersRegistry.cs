@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StructureMap;
 

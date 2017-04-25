@@ -3,22 +3,24 @@ using System.Net;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
+using StrategyCorps.CodeSample.Models;
 
-namespace StrategyCorps.CodeSample.Dispatchers
+namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 {
     public class TheMovieDbDispatcher : TheMovieDbDispatcherBase, ITelevisionDispatcher
     {
         private readonly ILogger _logger;
-        private readonly IRestClient _restClient;
+       // private readonly IRestClient _restClient;
 
-        public TheMovieDbDispatcher(ILogger logger, IRestClient restClient)
+        public TheMovieDbDispatcher(ILogger logger)
         {
             _logger = logger;
-            _restClient = restClient;
+            //_restClient = restClient;
         }
 
-        public string GetTelevisionShowsByQuery(string query)
+        public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
         {
             if (string.IsNullOrWhiteSpace(query)) throw new Exception("search query is required");
 
@@ -33,7 +35,10 @@ namespace StrategyCorps.CodeSample.Dispatchers
 
             try
             {
-                var response = _restClient.Execute(request);
+                var restClient = new RestClient();
+                restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
+
+                var response = restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
             }
             catch (Exception exception)
@@ -43,12 +48,15 @@ namespace StrategyCorps.CodeSample.Dispatchers
             }
         }
 
-        private string MapGetTelevisionShowsResponse(IRestResponse response)
+        private TelevisionSearchResponseDTO MapGetTelevisionShowsResponse(IRestResponse response)
         {
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    return JsonConvert.DeserializeObject<string>(response.Content);
+                    var televisionSearchResponse  = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
+                    //TODO : map to correct response;
+                return new TelevisionSearchResponseDTO();
+                    
                 case HttpStatusCode.NotFound:
                     throw new Exception("Requested Resource is not found");
                 case HttpStatusCode.BadRequest:

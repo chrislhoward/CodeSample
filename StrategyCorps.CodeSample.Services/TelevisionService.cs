@@ -1,6 +1,7 @@
 ﻿using NLog;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StrategyCorps.CodeSample.Interfaces.Services;
+using StrategyCorps.CodeSample.Models;
 
 namespace StrategyCorps.CodeSample.Services
 {
@@ -15,7 +16,7 @@ namespace StrategyCorps.CodeSample.Services
             _logger = logger;
         }
 
-        public string GetTelevisionShowsByQuery(string query)
+        public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
         {
             return _televisionDispatcher.GetTelevisionShowsByQuery(query);
         }

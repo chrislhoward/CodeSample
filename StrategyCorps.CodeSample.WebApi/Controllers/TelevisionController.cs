@@ -34,17 +34,21 @@ namespace StrategyCorps.SampleCode.WebApi.Controllers
 
             try
             {
-                var televisionShows = _televisionService.GetTelevisionShowsByQuery(query);
-                //TODO : check has shows and return correct error if not
+                var televisionSearchResponseModel = _televisionService.GetTelevisionShowsByQuery(query);
 
-                //TODO : Map
-                return Ok(televisionShows);
+                if (televisionSearchResponseModel != null)
+                {
+                    //TODO : Map to view model
+
+                    return Ok(televisionSearchResponseModel);
+                }
             }
             catch (Exception exception)
             {
                 _logger.Error(exception);
-                return Content(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage);
             }
+
+            return Content(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage);
         }
     }
 }
