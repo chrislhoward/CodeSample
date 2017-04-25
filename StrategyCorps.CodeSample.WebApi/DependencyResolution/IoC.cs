@@ -17,11 +17,26 @@
 
 
 namespace StrategyCorps.SampleCode.WebApi.DependencyResolution {
+    using StrategyCorps.CodeSample.Interfaces.Core;
     using StructureMap;
 	
     public static class IoC {
         public static IContainer Initialize() {
-            return new Container(c => c.AddRegistry<DefaultRegistry>());
+            var container = new Container(c =>
+            {
+                c.AddRegistry<DefaultWebApiRegistry>();
+            });
+
+            foreach (var startup in container.GetAllInstances<IStartUp>())
+            {
+                startup.Execute(container);
+            }
+
+            //uncomment to debug container
+            //var what = container.WhatDoIHave();
+            //Debug.Write(what);
+
+            return container;
         }
     }
 }

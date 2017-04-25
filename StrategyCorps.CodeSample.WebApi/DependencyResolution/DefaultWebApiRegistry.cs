@@ -20,6 +20,7 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
     using AutoMapper;
     using NLog;
     using StrategyCorps.CodeSample.Interfaces.Core;
+    using StrategyCorps.SampleCode.WebApi.DependencyResolution.Conventions;
     using StructureMap;
     using StructureMap.Graph.Scanning;
     using StructureMap.Pipeline;
@@ -28,14 +29,15 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
     using System.Linq;
     using System.Web.Mvc;
 
-    public class DefaultRegistry : Registry {
+    public class DefaultWebApiRegistry : Registry {
         #region Constructors and Destructors
 
-        public DefaultRegistry() {
+        public DefaultWebApiRegistry() {
             Scan(
                 scan => {
-                    scan.TheCallingAssembly();
+                    //scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
+                    //scan.With(new ControllerConvention());
                     scan.AssembliesFromApplicationBaseDirectory(x => x.FullName.Contains("StrategyCorps"));
 
                     //this provides bootstrap into the other assemblies that want or need a StartUp.cs
@@ -50,7 +52,7 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
         private void ConfigureAutoMapper()
         {
             //Get all Profiles
-            var profiles = from t in typeof(DefaultRegistry).Assembly.GetTypes()
+            var profiles = from t in typeof(DefaultWebApiRegistry).Assembly.GetTypes()
                            where typeof(Profile).IsAssignableFrom(t)
                            select (Profile)Activator.CreateInstance(t);
 

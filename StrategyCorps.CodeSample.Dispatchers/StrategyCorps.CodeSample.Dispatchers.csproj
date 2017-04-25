@@ -90,6 +90,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(ProjectDir)bin\$(ConfigurationName)\StrategyCorps.CodeSample.Dispatchers.dll" "$(SolutionDir)StrategyCorps.CodeSample.WebApi\bin\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)bin\$(ConfigurationName)\StrategyCorps.CodeSample.Dispatchers.dll" "$(SolutionDir)StrategyCorps.CodeSample.WebApi\bin\"
+xcopy /Y "$(ProjectDir)bin\$(ConfigurationName)\RestSharp.dll" "$(SolutionDir)StrategyCorps.CodeSample.WebApi\bin\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
