@@ -20,7 +20,7 @@ namespace StrategyCorps.CodeSample.Dispatchers
             });
 
             //add mapping profile here
-           // _mapperConfiguration..AddProfile<MemberMappingProfile>();
+            //_mapperConfiguration.AddProfiles<MemberMappingProfile>();
         }
     }
 }

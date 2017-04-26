@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
+using StrategyCorps.CodeSample.Models;
 
 namespace StrategyCorps.CodeSample.Dispatchers.MappingProfiles
 {
-    public class TheMovieDBMappingProfile:Profile
+    public class TheMovieDbMappingProfile:Profile
     {
-        public TheMovieDBMappingProfile()
+        public TheMovieDbMappingProfile()
         {
-            CreateMap<>();
+            CreateMap<TelevisionResult, TelevisionResultDTO>();
+            CreateMap<TelevisionSearchResponse, TelevisionSearchResponseDTO>();
         }
     }
 }

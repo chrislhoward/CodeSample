@@ -15,6 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
 {
     using AutoMapper;
@@ -48,18 +50,9 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
 
         private void ConfigureAutoMapper()
         {
-            //Get all Profiles
-            var profiles = from t in typeof(Registry).Assembly.GetTypes()
-                           where typeof(Profile).IsAssignableFrom(t)
-                           select (Profile)Activator.CreateInstance(t);
-
-            //For each Profile, include that profile in the MapperConfiguration
             var config = new MapperConfiguration(cfg =>
             {
-                foreach (var profile in profiles)
-                {
-                    cfg.AddProfile(profile);
-                }
+                cfg.AddProfiles(new List<string>{"StrategyCorps.CodeSample.WebApi", "StrategyCorps.CodeSample.Dispatchers", "StrategyCorps.CodeSample.Repositories"});
             });
 
             //Create a mapper that will be used by the DI container
