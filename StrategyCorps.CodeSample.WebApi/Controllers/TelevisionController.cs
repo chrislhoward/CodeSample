@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
 using NLog;
 using AutoMapper;
 using StrategyCorps.CodeSample.Interfaces.Services;
+using StrategyCorps.SampleCode.WebApi.Helpers;
 using Swashbuckle.Swagger.Annotations;
 
 namespace StrategyCorps.SampleCode.WebApi.Controllers
@@ -23,14 +25,22 @@ namespace StrategyCorps.SampleCode.WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        ///     Get television show
+        /// </summary>
+        /// <remarks>
+        /// Search for any television show
+        /// </remarks>
+        /// <param name="query">search query</param>
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Television search query must not contain special characters")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]
         [Route("api/television/{query}")]
         public IHttpActionResult TelevisionSearchByQuery(string query)
         {
-            if (string.IsNullOrWhiteSpace(query)) return Content(HttpStatusCode.BadRequest, "television search query is required");
+            if (string.IsNullOrWhiteSpace(query)) return Content(HttpStatusCode.BadRequest, "Television search query is required");
+            if (StringHelpers.HasSpecialCharacters(query)) return Content(HttpStatusCode.BadRequest, "Television search query must not contain special characters");
 
             try
             {

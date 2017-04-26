@@ -14,13 +14,11 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
     {
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-       // private readonly IRestClient _restClient;
 
         public TheMovieDbDispatcher(ILogger logger, IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;
-            //_restClient = restClient;
         }
 
         public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
