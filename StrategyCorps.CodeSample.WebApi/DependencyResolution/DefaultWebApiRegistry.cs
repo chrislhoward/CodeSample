@@ -49,7 +49,7 @@ namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
         private void ConfigureAutoMapper()
         {
             //Get all Profiles
-            var profiles = from t in typeof(DefaultWebApiRegistry).Assembly.GetTypes()
+            var profiles = from t in typeof(Registry).Assembly.GetTypes()
                            where typeof(Profile).IsAssignableFrom(t)
                            select (Profile)Activator.CreateInstance(t);
 
