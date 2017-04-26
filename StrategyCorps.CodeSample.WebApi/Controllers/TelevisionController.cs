@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Web.Http;
-using NLog;
 using AutoMapper;
+using NLog;
 using StrategyCorps.CodeSample.Interfaces.Services;
-using StrategyCorps.SampleCode.WebApi.Helpers;
+using StrategyCorps.CodeSample.Models;
+using StrategyCorps.CodeSample.WebApi.ViewModels;
 using Swashbuckle.Swagger.Annotations;
 
-namespace StrategyCorps.SampleCode.WebApi.Controllers
+namespace StrategyCorps.CodeSample.WebApi.Controllers
 {
     public class TelevisionController : ApiController
     {
@@ -33,32 +33,64 @@ namespace StrategyCorps.SampleCode.WebApi.Controllers
         /// </remarks>
         /// <param name="query">search query</param>
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Television search query must not contain special characters")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Television search query is required.")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]
         [Route("api/television/{query}")]
         public IHttpActionResult TelevisionSearchByQuery(string query)
         {
-            if (string.IsNullOrWhiteSpace(query)) return Content(HttpStatusCode.BadRequest, "Television search query is required");
-            if (StringHelpers.HasSpecialCharacters(query)) return Content(HttpStatusCode.BadRequest, "Television search query must not contain special characters");
+            if (string.IsNullOrWhiteSpace(query)) return Content(HttpStatusCode.BadRequest, "Television search query is required.");
 
             try
             {
-                var televisionSearchResponseModel = _televisionService.GetTelevisionShowsByQuery(query);
+                var televisionSearchResponseDTO = _televisionService.GetTelevisionShowsByQuery(query);
 
-                if (televisionSearchResponseModel != null)
-                {
-                    //TODO : Map to view model
+                if (televisionSearchResponseDTO == null) return Content(HttpStatusCode.NotFound, $"The television search {query} was not found.");
 
-                    return Ok(televisionSearchResponseModel);
-                }
+                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
+
+                return Ok(televisionSearchResponseViewModel);
+                
             }
             catch (Exception exception)
             {
                 _logger.Error(exception);
+                return Content(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage);
             }
+        }
 
-            return Content(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage);
+        /// <summary>
+        ///     Get similar television shows
+        /// </summary>
+        /// <remarks>
+        /// Search for any television show
+        /// </remarks>
+        /// <param name="id">Television id</param>
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Television id is required.")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
+        [HttpGet]
+        [Route("api/television/{id}/similar")]
+        public IHttpActionResult SimilarTelevisionShows(int id)
+        {
+            if (id <= 0) return Content(HttpStatusCode.BadRequest, "Television id is not correct");
+
+            try
+            {
+                var televisionSearchResponseDTO = _televisionService.GetSimilarTelevisionShowsById(id);
+
+                if (televisionSearchResponseDTO == null) return Content(HttpStatusCode.NotFound, $"The television id {id} was not found.");
+
+                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
+
+                return Ok(televisionSearchResponseViewModel);
+
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception);
+                return Content(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage);
+            }
         }
     }
 }

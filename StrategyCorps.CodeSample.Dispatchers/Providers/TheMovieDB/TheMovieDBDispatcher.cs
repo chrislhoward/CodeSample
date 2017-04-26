@@ -10,7 +10,7 @@ using StrategyCorps.CodeSample.Models;
 
 namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 {
-    public class TheMovieDbDispatcher : TheMovieDbDispatcherBase, ITelevisionDispatcher
+    public class TheMovieDbDispatcher : TheMovieDbDispatcherBase, IEntertainmentDispatcher
     {
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
@@ -36,8 +36,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 
             try
             {
-                var restClient = new RestClient();
-                restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
+                var restClient = new RestClient { BaseUrl = new Uri(TheMovieDbBaseUrl) };
 
                 var response = restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
@@ -62,6 +61,31 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                 default:
                     _logger.Error("Problem calling The Movie Db");
                     throw new Exception("Problem calling The Movie Db");
+            }
+        }
+
+        public TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id)
+        {
+            if (id <= 0) throw new Exception("id is not correct");
+
+            var request = new RestRequest
+            {
+                Method = Method.GET,
+                Resource = $"3/tv/{id}/similar?api_key={TheMovieDBApiKey}",
+                RequestFormat = DataFormat.Json
+            };
+
+            try
+            {
+                var restClient = new RestClient { BaseUrl = new Uri(TheMovieDbBaseUrl) };
+
+                var response = restClient.Execute(request);
+                return MapGetTelevisionShowsResponse(response);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception);
+                throw;
             }
         }
     }

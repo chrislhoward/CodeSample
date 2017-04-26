@@ -2,8 +2,10 @@
 
 namespace StrategyCorps.CodeSample.Interfaces.Dispatchers
 {
-    public interface ITelevisionDispatcher
+    public interface IEntertainmentDispatcher
     {
         TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query);
+
+        TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id);
     }
 }
