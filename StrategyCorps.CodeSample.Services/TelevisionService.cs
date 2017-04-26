@@ -7,18 +7,23 @@ namespace StrategyCorps.CodeSample.Services
 {
     public class TelevisionService : ITelevisionService
     {
-        private readonly ITelevisionDispatcher _televisionDispatcher;
+        private readonly IEntertainmentDispatcher _entertainmentDispatcher;
         private readonly ILogger _logger;
         
-        public TelevisionService(ITelevisionDispatcher televisionDispatcher, ILogger logger)
+        public TelevisionService(IEntertainmentDispatcher entertainmentDispatcher, ILogger logger)
         {
-            _televisionDispatcher = televisionDispatcher;
+            _entertainmentDispatcher = entertainmentDispatcher;
             _logger = logger;
         }
 
         public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
         {
-            return _televisionDispatcher.GetTelevisionShowsByQuery(query);
+            return _entertainmentDispatcher.GetTelevisionShowsByQuery(query);
+        }
+
+        public TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id)
+        {
+            return _entertainmentDispatcher.GetSimilarTelevisionShowsById(id);
         }
     }
 }

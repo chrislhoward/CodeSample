@@ -9,7 +9,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Registries
     {
         public DefaultDispatchersRegistry()
         {
-            For<ITelevisionDispatcher>().Use<TheMovieDbDispatcher>();
+            For<IEntertainmentDispatcher>().Use<TheMovieDbDispatcher>();
             For<IRestClient>().Use<RestClient>();
         }
     }
