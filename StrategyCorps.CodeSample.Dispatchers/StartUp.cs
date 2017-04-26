@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
-using StrategyCorps.CodeSample.Dispatchers.MappingProfiles;
-using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
 using StrategyCorps.CodeSample.Dispatchers.Registries;
 using StrategyCorps.CodeSample.Interfaces.Core;
-using StrategyCorps.CodeSample.Models;
 using StructureMap;
 
 namespace StrategyCorps.CodeSample.Dispatchers
 {
     public class StartUp:IStartUp
     {
+        //private MapperConfiguration _mapperConfiguration;
+        //public StartUp(MapperConfiguration mapperConfiguration)
+        //{
+        //    _mapperConfiguration = mapperConfiguration;
+        //}
         public void Execute(IContainer container)
         {
             container.Configure(c =>
@@ -17,9 +19,8 @@ namespace StrategyCorps.CodeSample.Dispatchers
                 c.AddRegistry<DefaultDispatchersRegistry>();
             });
 
-            Mapper.Initialize(cfg => cfg.CreateMap<TelevisionSearchResponse, TelevisionSearchResponseDTO>());
-
-            AutoMapperDispatcherConfiguration.Configure();
+            //add mapping profile here
+            //_mapperConfiguration.AddProfiles<MemberMappingProfile>();
         }
     }
 }
