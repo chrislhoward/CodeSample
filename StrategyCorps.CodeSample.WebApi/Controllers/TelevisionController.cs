@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Net;
 using System.Web.Http;
-using NLog;
 using AutoMapper;
+using NLog;
 using StrategyCorps.CodeSample.Interfaces.Services;
+using StrategyCorps.CodeSample.Models;
+using StrategyCorps.CodeSample.WebApi.ViewModels;
 using Swashbuckle.Swagger.Annotations;
 
-namespace StrategyCorps.SampleCode.WebApi.Controllers
+namespace StrategyCorps.CodeSample.WebApi.Controllers
 {
     public class TelevisionController : ApiController
     {
@@ -23,7 +25,7 @@ namespace StrategyCorps.SampleCode.WebApi.Controllers
             _mapper = mapper;
         }
 
-        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.OK, "",typeof(TelevisionResultViewModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]
@@ -38,9 +40,7 @@ namespace StrategyCorps.SampleCode.WebApi.Controllers
 
                 if (televisionSearchResponseModel != null)
                 {
-                    //TODO : Map to view model
-
-                    return Ok(televisionSearchResponseModel);
+                    return Ok(_mapper.Map<TelevisionSearchResponseDTO,TelevisionResultViewModel>(televisionSearchResponseModel));
                 }
             }
             catch (Exception exception)
