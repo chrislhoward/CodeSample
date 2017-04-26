@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using AutoMapper;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
@@ -12,11 +13,13 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
     public class TheMovieDbDispatcher : TheMovieDbDispatcherBase, ITelevisionDispatcher
     {
         private readonly ILogger _logger;
+        private readonly IMapper _mapper;
        // private readonly IRestClient _restClient;
 
-        public TheMovieDbDispatcher(ILogger logger)
+        public TheMovieDbDispatcher(ILogger logger, IMapper mapper)
         {
             _logger = logger;
+            _mapper = mapper;
             //_restClient = restClient;
         }
 
@@ -54,9 +57,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             {
                 case HttpStatusCode.OK:
                     var televisionSearchResponse  = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
-                    //TODO : map to correct response;
-                return new TelevisionSearchResponseDTO();
-                    
+                    return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
                 case HttpStatusCode.NotFound:
                     throw new Exception("Requested Resource is not found");
                 case HttpStatusCode.BadRequest:
