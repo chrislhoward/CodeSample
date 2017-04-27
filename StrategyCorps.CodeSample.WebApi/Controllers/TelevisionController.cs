@@ -32,7 +32,7 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         ///     Search for any television show
         /// </remarks>
         /// <param name="query">search query</param>
-        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.OK, "",typeof(TelevisionResultViewModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Television search query is required.")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]

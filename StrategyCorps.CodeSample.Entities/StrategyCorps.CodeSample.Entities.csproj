@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeSampleDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimilarTelevisionShowEntity.cs" />
+    <Compile Include="TelevisionShowEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StrategyCorps.CodeSample.Interfaces.Core\StrategyCorps.CodeSample.Interfaces.Core.csproj">
