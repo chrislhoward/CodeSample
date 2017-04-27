@@ -84,7 +84,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TelevisionControllerTests.cs" />
     <Compile Include="Extensions\ControllerTestExtensions.cs" />
-    <Compile Include="MappingProfiles\DefaultMappingProfile.cs" />
+    <Compile Include="MappingProfiles\DefaultMappingProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

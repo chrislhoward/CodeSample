@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using AutoMapper;
@@ -11,11 +8,9 @@ using ExpectedObjects;
 using FizzWare.NBuilder;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using StrategyCorps.CodeSample.Core;
 using StrategyCorps.CodeSample.Core.Exceptions;
 using StrategyCorps.CodeSample.Interfaces.Services;
-using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StrategyCorps.CodeSample.Models;
 using StrategyCorps.CodeSample.WebApi.Controllers;
 using StrategyCorps.CodeSample.WebApi.Tests.Extensions;
@@ -27,29 +22,6 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
     [TestFixture]
     public class TelevisionControllerTests
     {
-        private TelevisionController _televisionController;
-        private Mock<ITelevisionService> _televisionServiceMock;
-        private Mock<ITelevisionDispatcher> _televisionDispatcherMock;
-        private Mock<ILogger> _logger;
-        private Mock<IMapper> _mapper;
-  
-        [SetUp]
-        public void SetUp()
-        {
-            //_logger = new Mock<ILogger>();
-            //_logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
-            //_mapper = new Mock<IMapper>();
-            //_televisionDispatcherMock = new Mock<ITelevisionDispatcher>(_logger.Object, null);
-            //_televisionServiceMock = new Mock<ITelevisionService>(_televisionDispatcherMock.Object, _logger.Object, null);
-            //_televisionController = new TelevisionController(_televisionServiceMock.Object, _logger.Object, null);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            
-        }
-
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -77,7 +49,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
             response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError,ErrorCode.Default);
 
-            _logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
+            logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
         }
 
         [Test]
@@ -94,7 +66,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
             response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError, ErrorCode.Default);
 
-            _logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
+            logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
         }
 
         [Test]
@@ -111,7 +83,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
             response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError, ErrorCode.Default);
 
-            _logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
+            logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
         }
 
         [Test]
@@ -140,7 +112,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
 
             response.Content.ToExpectedObject().ShouldEqual(expectedResult);
 
-            _logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
+            logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
         }
     }
 }

@@ -59,6 +59,6 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Television.sql" />
+    <Build Include="TelevisionShow.sql" />
   </ItemGroup>
 </Project>
