@@ -29,7 +29,7 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         ///     Get television show
         /// </summary>
         /// <remarks>
-        /// Search for any television show
+        ///     Search for any television show
         /// </remarks>
         /// <param name="query">search query</param>
         [SwaggerResponse(HttpStatusCode.OK)]
@@ -63,7 +63,7 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         ///     Get similar television shows
         /// </summary>
         /// <remarks>
-        /// Search for any television show
+        ///     Get similar television shows
         /// </remarks>
         /// <param name="id">Television id</param>
         [SwaggerResponse(HttpStatusCode.OK)]
