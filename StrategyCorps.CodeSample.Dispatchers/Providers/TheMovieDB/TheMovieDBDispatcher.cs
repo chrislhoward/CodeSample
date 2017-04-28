@@ -14,11 +14,13 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
     {
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
+        private readonly IRestClient _restClient;
 
-        public TheMovieDbDispatcher(ILogger logger, IMapper mapper)
+        public TheMovieDbDispatcher(IRestClient restClient, ILogger logger, IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;
+            _restClient = restClient;
         }
 
         public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
@@ -36,9 +38,9 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 
             try
             {
-                var restClient = new RestClient { BaseUrl = new Uri(TheMovieDbBaseUrl) };
+                _restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
 
-                var response = restClient.Execute(request);
+                var response = _restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
             }
             catch (Exception exception)
@@ -77,9 +79,9 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 
             try
             {
-                var restClient = new RestClient { BaseUrl = new Uri(TheMovieDbBaseUrl) };
+                _restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
 
-                var response = restClient.Execute(request);
+                var response = _restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
             }
             catch (Exception exception)
