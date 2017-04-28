@@ -108,6 +108,10 @@
       <Project>{ac6ad03e-131e-49a3-bd46-76c7195ff461}</Project>
       <Name>StrategyCorps.CodeSample.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StrategyCorps.CodeSample.Services\StrategyCorps.CodeSample.Services.csproj">
+      <Project>{3D825FDF-D008-4859-8401-C779BEE93D3C}</Project>
+      <Name>StrategyCorps.CodeSample.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StrategyCorps.CodeSample.WebApi\StrategyCorps.CodeSample.WebApi.csproj">
       <Project>{5988d573-6e83-4855-91cb-a9998b635068}</Project>
       <Name>StrategyCorps.CodeSample.WebApi</Name>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using ExpectedObjects;
 using FizzWare.NBuilder;
@@ -32,7 +28,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
         }
 
         [Test]
-        public void DefaultMappingProfile_When_TelevsionSearchResponseDTO_Returns_TelevisionSearchResponseViewModel()
+        public void DefaultMappingProfile_When_TelevisionSearchResponseDTO_Returns_TelevisionSearchResponseViewModel()
         {
             var televisionResultsDTO = Builder<TelevisionResultDTO>.CreateListOfSize(5).Build().ToList();
             var televisionSearchResponseDTO = Builder<TelevisionSearchResponseDTO>.CreateNew()
@@ -55,7 +51,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
                 .With(x => x.Page = televisionSearchResponseDTO.Page)
                 .With(x => x.TotalPages = televisionSearchResponseDTO.TotalPages)
                 .With(x => x.TotalResults = televisionSearchResponseDTO.TotalResults)
-                .With(x => x.Results = televisionResultsViewModel);
+                .With(x => x.Results = televisionResultsViewModel).Build();
 
             var actualResult = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
 

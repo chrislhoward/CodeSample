@@ -22,6 +22,7 @@ namespace StrategyCorps.CodeSample.Services.Tests.Services.TelevisionService
         public void SetUp()
         {
             _entertainmentDispatcherMock = new Mock<IEntertainmentDispatcher>();
+            _loggerMock = new Mock<ILogger>();
         }
 
         [TearDown]

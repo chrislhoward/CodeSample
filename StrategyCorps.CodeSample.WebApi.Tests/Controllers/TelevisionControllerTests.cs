@@ -16,6 +16,7 @@ using StrategyCorps.CodeSample.WebApi.Controllers;
 using StrategyCorps.CodeSample.WebApi.Tests.Extensions;
 using StrategyCorps.CodeSample.WebApi.ViewModels;
 using ILogger = NLog.ILogger;
+using StrategyCorps.CodeSample.Services;
 
 namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
 {
@@ -31,23 +32,25 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             var televisionController = new TelevisionController(null, null, null);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
 
-            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
-            response.CheckForCorrectErrorResponseBody(HttpStatusCode.BadRequest,ErrorCode.Default);
+            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<string>>();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
 
         [Test]
         [TestCase("Gotham")]
-        public void TelevisionSearchByQuery_When_TelevisionServiceReturnsNull_Returns_InternalServerError(string query)
+        public void TelevisionSearchByQuery_When_TelevisionServiceReturnsNull_Returns_NotFound(string query)
         {
             var logger = new Mock<ILogger>();
             logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
-            var televisionServiceMock = new Mock<ITelevisionService>(null, null);
+
+            var televisionServiceMock = new Mock<ITelevisionService>();
             televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns((TelevisionSearchResponseDTO) null);
+
             var televisionController = new TelevisionController(televisionServiceMock.Object, logger.Object, null);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
 
-            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
-            response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError,ErrorCode.Default);
+            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<string>>();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
 
             logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
         }
@@ -58,13 +61,15 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
         {
             var logger = new Mock<ILogger>();
             logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
-            var televisionServiceMock = new Mock<ITelevisionService>(null, null);
+
+            var televisionServiceMock = new Mock<ITelevisionService>();
             televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Throws<Exception>();
+
             var televisionController = new TelevisionController(televisionServiceMock.Object, logger.Object, null);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
 
-            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
-            response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError, ErrorCode.Default);
+            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<string>>();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
 
             logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
         }
@@ -75,13 +80,15 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
         {
             var logger = new Mock<ILogger>();
             logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
-            var televisionServiceMock = new Mock<ITelevisionService>(null, null);
+
+            var televisionServiceMock = new Mock<ITelevisionService>();
             televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Throws<StrategyCorpsException>();
+
             var televisionController = new TelevisionController(televisionServiceMock.Object, logger.Object, null);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
 
-            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
-            response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError, ErrorCode.Default);
+            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<string>>();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
 
             logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Once);
         }
@@ -90,29 +97,29 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
         [TestCase("Gotham")]
         public void TelevisionSearchByQuery_When_TelevisionServiceReturnsTelevisionSearchResponseDTO_Returns_Ok(string query)
         {
+            var televisionSearchResponseDTO = Builder<TelevisionSearchResponseDTO>.CreateNew().Build();
             var televisionResultViewModels = Builder<TelevisionResultViewModel>.CreateListOfSize(5).Build();
             var expectedResult = Builder<TelevisionSearchResponseViewModel>.CreateNew()
                 .With(x => x.Results = televisionResultViewModels.ToList()).Build();
-            var logger = new Mock<ILogger>();
-            logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
 
-            var mapper = new Mock<IMapper>();
-            mapper.Setup(x => x.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDTO>()))
-                .Returns(expectedResult);
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
 
-            var televisionServiceMock = new Mock<ITelevisionService>(null, null);
-            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Throws<StrategyCorpsException>();
-            var televisionController = new TelevisionController(televisionServiceMock.Object, logger.Object, null);
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(x => x.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDTO>()))
+                .Returns(expectedResult).Verifiable();
+
+            var televisionServiceMock = new Mock<ITelevisionService>();
+            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns(televisionSearchResponseDTO);
+
+            var televisionController = new TelevisionController(televisionServiceMock.Object, loggerMock.Object, mapperMock.Object);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
 
-            var response = actionResult.CheckActionResultAndCast<NegotiatedContentResult<HttpError>>();
-            response.CheckForCorrectErrorResponseBody(HttpStatusCode.InternalServerError, ErrorCode.Default);
-
-            Assert.That(response.Content, Is.TypeOf<TelevisionSearchResponseViewModel>());
-
+            var response = actionResult.CheckActionResultAndCast<OkNegotiatedContentResult<TelevisionSearchResponseViewModel>>();
             response.Content.ToExpectedObject().ShouldEqual(expectedResult);
 
-            logger.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
+            loggerMock.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
+            mapperMock.Verify(x => x.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDTO>()), Times.Once);
         }
     }
 }
