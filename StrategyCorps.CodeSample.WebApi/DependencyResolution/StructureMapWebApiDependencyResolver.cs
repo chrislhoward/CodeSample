@@ -18,7 +18,7 @@
 using System.Web.Http.Dependencies;
 using StructureMap;
 
-namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
+namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {
     /// <summary>
     /// The structure map dependency resolver.

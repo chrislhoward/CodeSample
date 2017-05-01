@@ -15,13 +15,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using StrategyCorps.CodeSample.Interfaces.Core;
+using StructureMap;
 
-using StrategyCorps.CodeSample.WebApi.DependencyResolution;
-
-namespace StrategyCorps.SampleCode.WebApi.DependencyResolution {
-    using StrategyCorps.CodeSample.Interfaces.Core;
-    using StructureMap;
-	
+namespace StrategyCorps.CodeSample.WebApi.DependencyResolution {
     public static class IoC {
         public static IContainer Initialize() {
             var container = new Container(c =>

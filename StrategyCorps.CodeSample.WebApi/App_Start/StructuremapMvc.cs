@@ -15,23 +15,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using StrategyCorps.SampleCode.WebApi.App_Start;
-
+using System.Web.Mvc;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using StrategyCorps.CodeSample.WebApi;
+using StrategyCorps.CodeSample.WebApi.DependencyResolution;
+using StructureMap;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
 
-namespace StrategyCorps.SampleCode.WebApi.App_Start {
-	using System.Web.Mvc;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-	using StrategyCorps.SampleCode.WebApi.DependencyResolution;
-
-    using StructureMap;
-    
-	public static class StructuremapMvc {
+namespace StrategyCorps.CodeSample.WebApi {
+    public static class StructuremapMvc {
         #region Public Properties
 
         public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }

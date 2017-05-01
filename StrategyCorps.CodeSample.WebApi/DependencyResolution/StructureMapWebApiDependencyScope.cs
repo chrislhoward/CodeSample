@@ -15,14 +15,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http.Dependencies;
-using Microsoft.Practices.ServiceLocation;
 using StructureMap;
 
-namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
+namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {
     /// <summary>
     /// The structure map web api dependency scope.

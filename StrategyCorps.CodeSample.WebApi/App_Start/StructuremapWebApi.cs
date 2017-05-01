@@ -16,11 +16,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Web.Http;
-using StrategyCorps.SampleCode.WebApi.DependencyResolution;
+using StrategyCorps.CodeSample.WebApi;
+using StrategyCorps.CodeSample.WebApi.DependencyResolution;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StrategyCorps.SampleCode.WebApi.App_Start.StructuremapWebApi), "Start")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 
-namespace StrategyCorps.SampleCode.WebApi.App_Start {
+namespace StrategyCorps.CodeSample.WebApi {
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;

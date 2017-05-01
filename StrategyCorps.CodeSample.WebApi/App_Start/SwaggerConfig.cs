@@ -1,18 +1,16 @@
 using System.Web.Http;
-using WebActivatorEx;
-using StrategyCorps.SampleCode.WebApi;
+using StrategyCorps.CodeSample.WebApi;
 using Swashbuckle.Application;
+using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace StrategyCorps.SampleCode.WebApi
+namespace StrategyCorps.CodeSample.WebApi
 {
     public class SwaggerConfig
     {
         public static void Register()
         {
-            var thisAssembly = typeof(SwaggerConfig).Assembly;
-
             //          GlobalConfiguration.Configuration
             //.EnableSwagger(c => c.SingleApiVersion("v1", "A title for your API"))
             //.EnableSwaggerUi();

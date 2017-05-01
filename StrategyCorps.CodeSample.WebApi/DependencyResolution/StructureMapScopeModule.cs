@@ -1,10 +1,7 @@
-namespace StrategyCorps.SampleCode.WebApi.DependencyResolution {
-    using System.Web;
+using System.Web;
+using StructureMap.Web.Pipeline;
 
-    using StrategyCorps.SampleCode.WebApi.App_Start;
-
-    using StructureMap.Web.Pipeline;
-
+namespace StrategyCorps.CodeSample.WebApi.DependencyResolution {
     public class StructureMapScopeModule : IHttpModule {
         #region Public Methods and Operators
 
