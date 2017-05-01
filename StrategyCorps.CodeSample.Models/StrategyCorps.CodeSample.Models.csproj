@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TelevisionResultDTO.cs" />
-    <Compile Include="TelevisionSearchResponseDTO.cs" />
+    <Compile Include="TelevisionResultDto.cs" />
+    <Compile Include="TelevisionSearchResponseDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using AutoMapper;
 using ExpectedObjects;
 using FizzWare.NBuilder;
@@ -36,7 +37,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
 
             var televisionResultsViewModel = televisionResultsDto.Select(televisionResultDto => new TelevisionResultViewModel
             {
-                FirstAirDate = televisionResultDto.FirstAirDate,
+                FirstAirDate = televisionResultDto.FirstAirDate.ToString(CultureInfo.InvariantCulture),
                 Id = televisionResultDto.Id,
                 Name = televisionResultDto.Name,
                 OriginalLanguage = televisionResultDto.OriginalLanguage,
@@ -64,7 +65,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
             var televisionResultDto = Builder<TelevisionResultDto>.CreateNew().Build();
             var expectedResult = Builder<TelevisionResultViewModel>.CreateNew()
                 .With(x => x.OriginalLanguage = televisionResultDto.OriginalLanguage)
-                .With(x => x.FirstAirDate = televisionResultDto.FirstAirDate)
+                .With(x => x.FirstAirDate = televisionResultDto.FirstAirDate.ToString(CultureInfo.InvariantCulture))
                 .With(x => x.Id = televisionResultDto.Id)
                 .With(x => x.Name = televisionResultDto.Name)
                 .With(x => x.OriginalName = televisionResultDto.OriginalName)

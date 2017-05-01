@@ -1,4 +1,6 @@
-﻿namespace StrategyCorps.CodeSample.Models
+﻿using System;
+
+namespace StrategyCorps.CodeSample.Models
 {
     public class TelevisionResultDto
     {
@@ -10,7 +12,7 @@
 
         public string Overview { get; set; }
 
-        public string FirstAirDate { get; set; }
+        public DateTime FirstAirDate { get; set; }
         
         public string OriginalLanguage { get; set; }
 

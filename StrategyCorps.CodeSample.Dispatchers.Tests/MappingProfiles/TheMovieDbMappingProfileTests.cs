@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using AutoMapper;
 using ExpectedObjects;
 using FizzWare.NBuilder;
@@ -36,7 +38,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
 
             var televisionResultsDto = televisionResults.Select(televisionResult => new TelevisionResultDto
             {
-                FirstAirDate = televisionResult.FirstAirDate,
+                FirstAirDate = DateTime.Now,
                 Id = televisionResult.Id,
                 Name = televisionResult.Name,
                 OriginalLanguage = televisionResult.OriginalLanguage,
@@ -61,10 +63,10 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
         [Test]
         public void DefaultMappingProfile_When_TelevisionResult_Returns_TelevisionResultDTO()
         {
-            var televisionResult = Builder<TelevisionResult>.CreateNew().Build();
+            var televisionResult = Builder<TelevisionResult>.CreateNew().With(x => x.FirstAirDate = DateTime.Now.ToString(CultureInfo.InvariantCulture)).Build();
             var expectedResult = Builder<TelevisionResultDto>.CreateNew()
                                                                    .With(x => x.OriginalLanguage = televisionResult.OriginalLanguage)
-                                                                   .With(x => x.FirstAirDate = televisionResult.FirstAirDate)
+                                                                   .With(x => x.FirstAirDate = DateTime.Parse(televisionResult.FirstAirDate))
                                                                    .With(x => x.Id = televisionResult.Id)
                                                                    .With(x => x.Name = televisionResult.Name)
                                                                    .With(x => x.OriginalName = televisionResult.OriginalName)

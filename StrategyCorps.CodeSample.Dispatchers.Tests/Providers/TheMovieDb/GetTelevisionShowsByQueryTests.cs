@@ -103,7 +103,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
             var televisionSearchResponse = Builder<TelevisionSearchResponse>.CreateNew().With(x => x.Results = televisionResults).Build();
             var televisionResultsDto = televisionResults.Select(televisionResult => new TelevisionResultDto
             {
-                FirstAirDate = televisionResult.FirstAirDate,
+                FirstAirDate = DateTime.Now,
                 Id = televisionResult.Id,
                 Name = televisionResult.Name,
                 OriginalLanguage = televisionResult.OriginalLanguage,

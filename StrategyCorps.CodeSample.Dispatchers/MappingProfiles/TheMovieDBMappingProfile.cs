@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
 using StrategyCorps.CodeSample.Models;
 
@@ -8,7 +9,8 @@ namespace StrategyCorps.CodeSample.Dispatchers.MappingProfiles
     {
         public TheMovieDbMappingProfile()
         {
-            CreateMap<TelevisionResult, TelevisionResultDto>();
+            CreateMap<TelevisionResult, TelevisionResultDto>()
+                .ForMember(destination => destination.FirstAirDate, options => options.MapFrom(source => DateTime.Parse(source.FirstAirDate)));
             CreateMap<TelevisionSearchResponse, TelevisionSearchResponseDto>();
         }
     }

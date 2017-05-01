@@ -10,6 +10,9 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace StrategyCorps.CodeSample.WebApi.Controllers
 {
+    /// <summary>
+    /// The television controller
+    /// </summary>
     public class TelevisionController : ApiController
     {
         private const string InternalServerErrorDefaultMessage = "There was a problem processing the request, please try again later.";
@@ -18,6 +21,12 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// The television controller constructor
+        /// </summary>
+        /// <param name="televisionService" cref="ITelevisionService">The television service</param>
+        /// <param name="logger" cref="ILogger">The NLog logger</param>
+        /// <param name="mapper" cref="IMapper">The AutoMapper mapper</param>
         public TelevisionController(ITelevisionService televisionService, ILogger logger, IMapper mapper)
         {
             _televisionService = televisionService;
