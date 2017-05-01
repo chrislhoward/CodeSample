@@ -11,6 +11,6 @@ namespace StrategyCorps.CodeSample.Core
         Default = 0,
 
         [Description("We're sorry there was a problem on our end please try again.")]
-        Unknown = 999,
+        Unknown = 999
     }
 }

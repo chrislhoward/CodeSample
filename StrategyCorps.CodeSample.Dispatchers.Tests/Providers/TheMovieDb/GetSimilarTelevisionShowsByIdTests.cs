@@ -34,9 +34,9 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
         [TearDown]
         public void TearDown()
         {
-            _restClientMock = new Mock<IRestClient>();
-            _loggerMock = new Mock<ILogger>();
-            _mapperMock = new Mock<IMapper>();
+            _restClientMock = null;
+            _loggerMock = null;
+            _mapperMock = null;
         }
 
         [Test]
@@ -64,17 +64,19 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
 
         [Test]
         [TestCase(10)]
-        public void GetSimilarTelevisionShowsById_When_RestClientReturnsNotFound_Throws_StrategyCorpException(int id)
+        public void GetSimilarTelevisionShowsById_When_RestClientReturnsNotFound_Returns_Null(int id)
         {
             var restResponse = Builder<RestResponse>.CreateNew()
                                                     .With(x => x.StatusCode = HttpStatusCode.NotFound).Build();
             _loggerMock.Setup(x => x.Error(It.IsAny<StrategyCorpsException>())).Verifiable();
             _restClientMock.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(restResponse).Verifiable();
             var theMovieDbDispatcher = new TheMovieDbDispatcher(_restClientMock.Object, _loggerMock.Object, null);
-            Assert.Throws<StrategyCorpsException>(() => theMovieDbDispatcher.GetSimilarTelevisionShowsById(id));
+            var actualResult = theMovieDbDispatcher.GetSimilarTelevisionShowsById(id);
 
-            _loggerMock.Verify(x => x.Error(It.IsAny<StrategyCorpsException>()), Times.Once);
+            _loggerMock.Verify(x => x.Error(It.IsAny<StrategyCorpsException>()), Times.Never);
             _restClientMock.Verify(x => x.Execute(It.IsAny<IRestRequest>()), Times.Once);
+
+            Assert.IsNull(actualResult);
         }
 
         [Test]
@@ -88,7 +90,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
             var theMovieDbDispatcher = new TheMovieDbDispatcher(_restClientMock.Object, _loggerMock.Object, null);
             Assert.Throws<StrategyCorpsException>(() => theMovieDbDispatcher.GetSimilarTelevisionShowsById(id));
 
-            _loggerMock.Verify(x => x.Error(It.IsAny<StrategyCorpsException>()), Times.Once);
+            _loggerMock.Verify(x => x.Error(It.IsAny<StrategyCorpsException>()), Times.Never);
             _restClientMock.Verify(x => x.Execute(It.IsAny<IRestRequest>()), Times.Once);
         }
 

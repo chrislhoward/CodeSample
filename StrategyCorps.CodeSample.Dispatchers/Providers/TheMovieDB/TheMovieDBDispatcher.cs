@@ -4,6 +4,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using StrategyCorps.CodeSample.Core;
 using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StrategyCorps.CodeSample.Models;
@@ -35,6 +36,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
         public TelevisionSearchResponseDto GetTelevisionShowsByQuery(string query)
         {
             if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException(nameof(query), "The search query is required.");
+            IRestResponse response;
 
             var queryString = $"api_key={TheMovieDbApiKey}&query={query}";
 
@@ -49,19 +51,15 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             {
                 _restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
 
-                var response = _restClient.Execute(request);
-                return MapGetTelevisionShowsResponse(response);
-            }
-            catch (StrategyCorpsException strategyCorpsException)
-            {
-                _logger.Error(strategyCorpsException);
-                throw;
+                response = _restClient.Execute(request);
             }
             catch (Exception exception)
             {
                 _logger.Error(exception);
                 throw;
             }
+
+            return MapGetTelevisionShowsResponse(response);
         }
 
         /// <summary>
@@ -76,6 +74,8 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
         {
             if (id <= 0) throw new ArgumentException("The id  must be greater than 0.", nameof(id));
 
+            IRestResponse response;
+
             var request = new RestRequest
             {
                 Method = Method.GET,
@@ -87,19 +87,15 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             {
                 _restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
 
-                var response = _restClient.Execute(request);
-                return MapGetTelevisionShowsResponse(response);
-            }
-            catch (StrategyCorpsException strategyCorpsException)
-            {
-                _logger.Error(strategyCorpsException);
-                throw;
+                response = _restClient.Execute(request);
             }
             catch (Exception exception)
             {
                 _logger.Error(exception);
                 throw;
             }
+
+            return MapGetTelevisionShowsResponse(response);
         }
 
         /// <summary>
@@ -116,9 +112,9 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                     var televisionSearchResponse = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
                     return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDto>(televisionSearchResponse);
                 case HttpStatusCode.NotFound:
-                    throw new StrategyCorpsException("The requested resource is not found.");
+                    return null;
                 default:
-                    throw new StrategyCorpsException("There was a problem calling The Movie Db.");
+                    throw new StrategyCorpsException("There was a problem calling The Movie Db.", ErrorCode.Unknown, null);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
 {
     public class TelevisionController : ApiController
     {
-        private const string InternalServerErrorDefaultMessage = "There has been a problem processing the request, please try again later.";
+        private const string InternalServerErrorDefaultMessage = "There was a problem processing the request, please try again later.";
 
         private readonly ITelevisionService _televisionService;
         private readonly ILogger _logger;
@@ -34,6 +34,7 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         /// <param name="query">search query</param>
         [SwaggerResponse(HttpStatusCode.OK, "",typeof(TelevisionResultViewModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Television search query is required.")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "The television search {query} was not found.")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]
         [Route("api/television/{query}")]
@@ -65,9 +66,10 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
         /// <remarks>
         ///     Get similar television shows
         /// </remarks>
-        /// <param name="id">Television id</param>
-        [SwaggerResponse(HttpStatusCode.OK)]
+        /// <param name="id">Television show id</param>
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(TelevisionResultViewModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Television id is required.")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "The television id {id} was not found.")]
         [SwaggerResponse(HttpStatusCode.InternalServerError, InternalServerErrorDefaultMessage)]
         [HttpGet]
         [Route("api/television/{id}/similar")]
