@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace StrategyCorps.SampleCode.WebApi
+namespace StrategyCorps.CodeSample.WebApi
 {
     public class FilterConfig
     {

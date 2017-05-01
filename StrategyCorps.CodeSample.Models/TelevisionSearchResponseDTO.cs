@@ -2,9 +2,9 @@
 
 namespace StrategyCorps.CodeSample.Models
 {
-    public class TelevisionSearchResponseDTO
+    public class TelevisionSearchResponseDto
     {
-        public IList<TelevisionResultDTO> Results { get; set; }
+        public IList<TelevisionResultDto> Results { get; set; }
 
         public int Page { get; set; }
 

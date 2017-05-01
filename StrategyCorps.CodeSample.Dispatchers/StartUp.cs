@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using StrategyCorps.CodeSample.Dispatchers.Registries;
+﻿using StrategyCorps.CodeSample.Dispatchers.Registries;
 using StrategyCorps.CodeSample.Interfaces.Core;
 using StructureMap;
 

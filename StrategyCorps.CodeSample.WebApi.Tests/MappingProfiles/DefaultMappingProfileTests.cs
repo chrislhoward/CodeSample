@@ -30,30 +30,30 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
         [Test]
         public void DefaultMappingProfile_When_TelevisionSearchResponseDTO_Returns_TelevisionSearchResponseViewModel()
         {
-            var televisionResultsDTO = Builder<TelevisionResultDTO>.CreateListOfSize(5).Build().ToList();
-            var televisionSearchResponseDTO = Builder<TelevisionSearchResponseDTO>.CreateNew()
-                .With(x => x.Results = televisionResultsDTO).Build();
+            var televisionResultsDto = Builder<TelevisionResultDto>.CreateListOfSize(5).Build().ToList();
+            var televisionSearchResponseDto = Builder<TelevisionSearchResponseDto>.CreateNew()
+                .With(x => x.Results = televisionResultsDto).Build();
 
-            var televisionResultsViewModel = televisionResultsDTO.Select(televisionResultDTO => new TelevisionResultViewModel
+            var televisionResultsViewModel = televisionResultsDto.Select(televisionResultDto => new TelevisionResultViewModel
             {
-                FirstAirDate = televisionResultDTO.FirstAirDate,
-                Id = televisionResultDTO.Id,
-                Name = televisionResultDTO.Name,
-                OriginalLanguage = televisionResultDTO.OriginalLanguage,
-                OriginalName = televisionResultDTO.OriginalName,
-                Overview = televisionResultDTO.Overview,
-                Popularity = televisionResultDTO.Popularity,
-                VoteAverage = televisionResultDTO.VoteAverage,
-                VoteCount = televisionResultDTO.VoteCount
+                FirstAirDate = televisionResultDto.FirstAirDate,
+                Id = televisionResultDto.Id,
+                Name = televisionResultDto.Name,
+                OriginalLanguage = televisionResultDto.OriginalLanguage,
+                OriginalName = televisionResultDto.OriginalName,
+                Overview = televisionResultDto.Overview,
+                Popularity = televisionResultDto.Popularity,
+                VoteAverage = televisionResultDto.VoteAverage,
+                VoteCount = televisionResultDto.VoteCount
             }).ToList();
 
             var expectedResult = Builder<TelevisionSearchResponseViewModel>.CreateNew()
-                .With(x => x.Page = televisionSearchResponseDTO.Page)
-                .With(x => x.TotalPages = televisionSearchResponseDTO.TotalPages)
-                .With(x => x.TotalResults = televisionSearchResponseDTO.TotalResults)
+                .With(x => x.Page = televisionSearchResponseDto.Page)
+                .With(x => x.TotalPages = televisionSearchResponseDto.TotalPages)
+                .With(x => x.TotalResults = televisionSearchResponseDto.TotalResults)
                 .With(x => x.Results = televisionResultsViewModel).Build();
 
-            var actualResult = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
+            var actualResult = _mapper.Map<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>(televisionSearchResponseDto);
 
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }
@@ -61,19 +61,19 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
         [Test]
         public void DefaultMappingProfile_When_TelevisionResultDTO_Returns_TelevisionResultViewModel()
         {
-            var televisionResultDTO = Builder<TelevisionResultDTO>.CreateNew().Build();
+            var televisionResultDto = Builder<TelevisionResultDto>.CreateNew().Build();
             var expectedResult = Builder<TelevisionResultViewModel>.CreateNew()
-                .With(x => x.OriginalLanguage = televisionResultDTO.OriginalLanguage)
-                .With(x => x.FirstAirDate = televisionResultDTO.FirstAirDate)
-                .With(x => x.Id = televisionResultDTO.Id)
-                .With(x => x.Name = televisionResultDTO.Name)
-                .With(x => x.OriginalName = televisionResultDTO.OriginalName)
-                .With(x => x.Overview = televisionResultDTO.Overview)
-                .With(x => x.Popularity = televisionResultDTO.Popularity)
-                .With(x => x.VoteAverage = televisionResultDTO.VoteAverage)
-                .With(x => x.VoteCount = televisionResultDTO.VoteCount).Build();
+                .With(x => x.OriginalLanguage = televisionResultDto.OriginalLanguage)
+                .With(x => x.FirstAirDate = televisionResultDto.FirstAirDate)
+                .With(x => x.Id = televisionResultDto.Id)
+                .With(x => x.Name = televisionResultDto.Name)
+                .With(x => x.OriginalName = televisionResultDto.OriginalName)
+                .With(x => x.Overview = televisionResultDto.Overview)
+                .With(x => x.Popularity = televisionResultDto.Popularity)
+                .With(x => x.VoteAverage = televisionResultDto.VoteAverage)
+                .With(x => x.VoteCount = televisionResultDto.VoteCount).Build();
 
-            var actualResult = _mapper.Map<TelevisionResultDTO, TelevisionResultViewModel>(televisionResultDTO);
+            var actualResult = _mapper.Map<TelevisionResultDto, TelevisionResultViewModel>(televisionResultDto);
 
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }

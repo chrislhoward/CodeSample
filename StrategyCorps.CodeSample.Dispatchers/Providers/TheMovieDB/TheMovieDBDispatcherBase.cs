@@ -4,7 +4,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 {
     public class TheMovieDbDispatcherBase
     {
-        protected readonly string TheMovieDBApiKey = ConfigurationManager.AppSettings.Get("TheMovieDBApiKey");
-        protected string TheMovieDbBaseUrl = ConfigurationManager.AppSettings.Get("TheMovieDBBaseUrl");
+        protected readonly string TheMovieDbApiKey = ConfigurationManager.AppSettings.Get("TheMovieDbApiKey");
+        protected readonly string TheMovieDbBaseUrl = ConfigurationManager.AppSettings.Get("TheMovieDbBaseUrl");
     }
 }

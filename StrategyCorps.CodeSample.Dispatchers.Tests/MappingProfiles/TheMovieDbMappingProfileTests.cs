@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using ExpectedObjects;
 using FizzWare.NBuilder;
@@ -38,7 +34,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
             var televisionSearchResponse = Builder<TelevisionSearchResponse>.CreateNew()
                                                                                   .With(x => x.Results = televisionResults).Build();
 
-            var televisionResultsDTO = televisionResults.Select(televisionResult => new TelevisionResultDTO
+            var televisionResultsDto = televisionResults.Select(televisionResult => new TelevisionResultDto
             {
                 FirstAirDate = televisionResult.FirstAirDate,
                 Id = televisionResult.Id,
@@ -51,13 +47,13 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
                 VoteCount = televisionResult.VoteCount
             }).ToList();
 
-            var expectedResult = Builder<TelevisionSearchResponseDTO>.CreateNew()
+            var expectedResult = Builder<TelevisionSearchResponseDto>.CreateNew()
                                                                            .With(x => x.Page = televisionSearchResponse.Page)
                                                                            .With(x => x.TotalPages = televisionSearchResponse.TotalPages)
                                                                            .With(x => x.TotalResults = televisionSearchResponse.TotalResults)
-                                                                           .With(x => x.Results = televisionResultsDTO).Build();
+                                                                           .With(x => x.Results = televisionResultsDto).Build();
 
-            var actualResult = _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
+            var actualResult = _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDto>(televisionSearchResponse);
 
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }
@@ -66,7 +62,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
         public void DefaultMappingProfile_When_TelevisionResult_Returns_TelevisionResultDTO()
         {
             var televisionResult = Builder<TelevisionResult>.CreateNew().Build();
-            var expectedResult = Builder<TelevisionResultDTO>.CreateNew()
+            var expectedResult = Builder<TelevisionResultDto>.CreateNew()
                                                                    .With(x => x.OriginalLanguage = televisionResult.OriginalLanguage)
                                                                    .With(x => x.FirstAirDate = televisionResult.FirstAirDate)
                                                                    .With(x => x.Id = televisionResult.Id)
@@ -77,7 +73,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
                                                                    .With(x => x.VoteAverage = televisionResult.VoteAverage)
                                                                    .With(x => x.VoteCount = televisionResult.VoteCount).Build();
 
-            var actualResult = _mapper.Map<TelevisionResult, TelevisionResultDTO>(televisionResult);
+            var actualResult = _mapper.Map<TelevisionResult, TelevisionResultDto>(televisionResult);
 
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }

@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace StrategyCorps.SampleCode.WebApi
+namespace StrategyCorps.CodeSample.WebApi
 {
     public class BundleConfig
     {

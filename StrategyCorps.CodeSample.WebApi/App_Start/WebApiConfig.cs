@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace StrategyCorps.SampleCode.WebApi
+namespace StrategyCorps.CodeSample.WebApi
 {
     public static class WebApiConfig
     {

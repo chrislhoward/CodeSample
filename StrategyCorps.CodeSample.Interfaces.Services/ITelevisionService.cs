@@ -4,8 +4,8 @@ namespace StrategyCorps.CodeSample.Interfaces.Services
 {
     public interface ITelevisionService
     {
-        TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query);
+        TelevisionSearchResponseDto GetTelevisionShowsByQuery(string query);
 
-        TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id);
+        TelevisionSearchResponseDto GetSimilarTelevisionShowsById(int id);
     }
 }

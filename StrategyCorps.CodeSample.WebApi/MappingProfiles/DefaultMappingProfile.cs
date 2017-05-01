@@ -8,8 +8,8 @@ namespace StrategyCorps.CodeSample.WebApi.MappingProfiles
     {
         public DefaultMappingProfile()
         {
-            CreateMap<TelevisionResultDTO, TelevisionResultViewModel>();
-            CreateMap<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>();
+            CreateMap<TelevisionResultDto, TelevisionResultViewModel>();
+            CreateMap<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>();
         }
     }
 }

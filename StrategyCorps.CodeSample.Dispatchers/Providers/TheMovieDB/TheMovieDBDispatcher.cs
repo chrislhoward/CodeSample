@@ -24,11 +24,19 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             _restClient = restClient;
         }
 
-        public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
+        /// <summary>
+        /// Gets television shows that meet the query criteria
+        /// </summary>
+        /// <param name="query">The criteria used to search for television shows</param>
+        /// <returns cref="TelevisionSearchResponseDto"></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="StrategyCorpsException"></exception>
+        /// <exception cref="Exception"></exception>
+        public TelevisionSearchResponseDto GetTelevisionShowsByQuery(string query)
         {
             if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException(nameof(query), "The search query is required.");
 
-            var queryString = $"api_key={TheMovieDBApiKey}&query={query}";
+            var queryString = $"api_key={TheMovieDbApiKey}&query={query}";
 
             var request = new RestRequest
             {
@@ -56,14 +64,22 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             }
         }
 
-        public TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id)
+        /// <summary>
+        /// Gets television shows that are similar to the television show whose id is passed in.
+        /// </summary>
+        /// <param name="id">The id of the television show used to find similar television shows. </param>
+        /// <returns cref="TelevisionSearchResponseDto"></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="StrategyCorpsException"></exception>
+        /// <exception cref="Exception"></exception>
+        public TelevisionSearchResponseDto GetSimilarTelevisionShowsById(int id)
         {
             if (id <= 0) throw new ArgumentException("The id  must be greater than 0.", nameof(id));
 
             var request = new RestRequest
             {
                 Method = Method.GET,
-                Resource = $"3/tv/{id}/similar?api_key={TheMovieDBApiKey}",
+                Resource = $"3/tv/{id}/similar?api_key={TheMovieDbApiKey}",
                 RequestFormat = DataFormat.Json
             };
 
@@ -86,17 +102,23 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             }
         }
 
-        private TelevisionSearchResponseDTO MapGetTelevisionShowsResponse(IRestResponse response)
+        /// <summary>
+        /// Maps the rest response from the get television shows request
+        /// </summary>
+        /// <param name="response" cref="IRestResponse">The rest response from the rest request. </param>
+        /// <returns cref="TelevisionSearchResponseDto"></returns>
+        /// <exception cref="StrategyCorpsException"></exception>
+        private TelevisionSearchResponseDto MapGetTelevisionShowsResponse(IRestResponse response)
         {
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
                     var televisionSearchResponse = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
-                    return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
+                    return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDto>(televisionSearchResponse);
                 case HttpStatusCode.NotFound:
-                    throw new StrategyCorpsException("Requested Resource is not found");
+                    throw new StrategyCorpsException("The requested resource is not found.");
                 default:
-                    throw new StrategyCorpsException("Problem calling The Movie Db");
+                    throw new StrategyCorpsException("There was a problem calling The Movie Db.");
             }
         }
     }

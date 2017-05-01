@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="StrategyCorps.SampleCode.WebApi.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="StrategyCorps.CodeSample.WebApi.WebApiApplication" Language="C#" %>

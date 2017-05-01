@@ -16,6 +16,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using StrategyCorps.CodeSample.WebApi.DependencyResolution;
+
 namespace StrategyCorps.SampleCode.WebApi.DependencyResolution {
     using StrategyCorps.CodeSample.Interfaces.Core;
     using StructureMap;

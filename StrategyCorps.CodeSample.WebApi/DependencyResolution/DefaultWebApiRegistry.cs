@@ -16,20 +16,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
+using NLog;
+using StrategyCorps.CodeSample.Interfaces.Core;
+using StructureMap;
+using StructureMap.Graph.Scanning;
+using StructureMap.Pipeline;
+using StructureMap.TypeRules;
 
-namespace StrategyCorps.SampleCode.WebApi.DependencyResolution
+namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {
-    using AutoMapper;
-    using NLog;
-    using CodeSample.Interfaces.Core;
-    using StructureMap;
-    using StructureMap.Graph.Scanning;
-    using StructureMap.Pipeline;
-    using StructureMap.TypeRules;
-    using System;
-    using System.Linq;
-    using System.Web.Mvc;
-
     public class DefaultWebApiRegistry : Registry {
         #region Constructors and Destructors
 

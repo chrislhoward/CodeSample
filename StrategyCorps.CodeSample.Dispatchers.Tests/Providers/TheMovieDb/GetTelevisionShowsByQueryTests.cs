@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
@@ -100,7 +99,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
         {
             var televisionResults = Builder<TelevisionResult>.CreateListOfSize(5).Build().ToList();
             var televisionSearchResponse = Builder<TelevisionSearchResponse>.CreateNew().With(x => x.Results = televisionResults).Build();
-            var televisionResultsDTO = televisionResults.Select(televisionResult => new TelevisionResultDTO
+            var televisionResultsDto = televisionResults.Select(televisionResult => new TelevisionResultDto
             {
                 FirstAirDate = televisionResult.FirstAirDate,
                 Id = televisionResult.Id,
@@ -113,17 +112,17 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
                 VoteCount = televisionResult.VoteCount
             }).ToList();
 
-            var expectedResult = Builder<TelevisionSearchResponseDTO>.CreateNew()
+            var expectedResult = Builder<TelevisionSearchResponseDto>.CreateNew()
                                                                      .With(x => x.Page = televisionSearchResponse.Page)
                                                                      .With(x => x.TotalPages = televisionSearchResponse.TotalPages)
                                                                      .With(x => x.TotalResults = televisionSearchResponse.TotalResults)
-                                                                     .With(x => x.Results = televisionResultsDTO).Build();
+                                                                     .With(x => x.Results = televisionResultsDto).Build();
             var restResponse = Builder<RestResponse>.CreateNew()
                 .With(x => x.StatusCode = HttpStatusCode.OK)
                 .With(x => x.Content = JsonConvert.SerializeObject(televisionSearchResponse)).Build();
             _loggerMock.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
             _restClientMock.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(restResponse).Verifiable();
-            _mapperMock.Setup(x => x.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(It.IsAny<TelevisionSearchResponse>())).Returns(expectedResult).Verifiable();
+            _mapperMock.Setup(x => x.Map<TelevisionSearchResponse, TelevisionSearchResponseDto>(It.IsAny<TelevisionSearchResponse>())).Returns(expectedResult).Verifiable();
 
             var theMovieDbDispatcher = new TheMovieDbDispatcher(_restClientMock.Object, _loggerMock.Object,_mapperMock.Object);
             var actualResult = theMovieDbDispatcher.GetTelevisionShowsByQuery(query);
@@ -132,7 +131,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
 
             _loggerMock.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
             _restClientMock.Verify(x => x.Execute(It.IsAny<IRestRequest>()), Times.Once);
-            _mapperMock.Verify(x => x.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(It.IsAny<TelevisionSearchResponse>()), Times.Once);
+            _mapperMock.Verify(x => x.Map<TelevisionSearchResponse, TelevisionSearchResponseDto>(It.IsAny<TelevisionSearchResponse>()), Times.Once);
 
         }
     }

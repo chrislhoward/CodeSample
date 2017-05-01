@@ -41,7 +41,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             logger.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
 
             var televisionServiceMock = new Mock<ITelevisionService>();
-            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns((TelevisionSearchResponseDTO) null);
+            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns((TelevisionSearchResponseDto) null);
 
             var televisionController = new TelevisionController(televisionServiceMock.Object, logger.Object, null);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
@@ -94,7 +94,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
         [TestCase("Gotham")]
         public void TelevisionSearchByQuery_When_TelevisionServiceReturnsTelevisionSearchResponseDTO_Returns_Ok(string query)
         {
-            var televisionSearchResponseDTO = Builder<TelevisionSearchResponseDTO>.CreateNew().Build();
+            var televisionSearchResponseDto = Builder<TelevisionSearchResponseDto>.CreateNew().Build();
             var televisionResultViewModels = Builder<TelevisionResultViewModel>.CreateListOfSize(5).Build();
             var expectedResult = Builder<TelevisionSearchResponseViewModel>.CreateNew()
                 .With(x => x.Results = televisionResultViewModels.ToList()).Build();
@@ -103,11 +103,11 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             loggerMock.Setup(x => x.Error(It.IsAny<Exception>())).Verifiable();
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(x => x.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDTO>()))
+            mapperMock.Setup(x => x.Map<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDto>()))
                 .Returns(expectedResult).Verifiable();
 
             var televisionServiceMock = new Mock<ITelevisionService>();
-            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns(televisionSearchResponseDTO);
+            televisionServiceMock.Setup(x => x.GetTelevisionShowsByQuery(It.IsAny<string>())).Returns(televisionSearchResponseDto);
 
             var televisionController = new TelevisionController(televisionServiceMock.Object, loggerMock.Object, mapperMock.Object);
             var actionResult = televisionController.TelevisionSearchByQuery(query);
@@ -116,7 +116,7 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
             response.Content.ToExpectedObject().ShouldEqual(expectedResult);
 
             loggerMock.Verify(x => x.Error(It.IsAny<Exception>()), Times.Never);
-            mapperMock.Verify(x => x.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDTO>()), Times.Once);
+            mapperMock.Verify(x => x.Map<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>(It.IsAny<TelevisionSearchResponseDto>()), Times.Once);
         }
     }
 }

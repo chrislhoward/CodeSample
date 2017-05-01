@@ -1,6 +1,6 @@
 ﻿namespace StrategyCorps.CodeSample.Models
 {
-    public class TelevisionResultDTO
+    public class TelevisionResultDto
     {
         public decimal Popularity { get; set; }
 

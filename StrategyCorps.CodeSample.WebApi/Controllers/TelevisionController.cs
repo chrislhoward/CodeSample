@@ -43,11 +43,11 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
 
             try
             {
-                var televisionSearchResponseDTO = _televisionService.GetTelevisionShowsByQuery(query);
+                var televisionSearchResponseDto = _televisionService.GetTelevisionShowsByQuery(query);
 
-                if (televisionSearchResponseDTO == null) return Content(HttpStatusCode.NotFound, $"The television search {query} was not found.");
+                if (televisionSearchResponseDto == null) return Content(HttpStatusCode.NotFound, $"The television search {query} was not found.");
 
-                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
+                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>(televisionSearchResponseDto);
 
                 return Ok(televisionSearchResponseViewModel);
                 
@@ -77,11 +77,11 @@ namespace StrategyCorps.CodeSample.WebApi.Controllers
 
             try
             {
-                var televisionSearchResponseDTO = _televisionService.GetSimilarTelevisionShowsById(id);
+                var televisionSearchResponseDto = _televisionService.GetSimilarTelevisionShowsById(id);
 
-                if (televisionSearchResponseDTO == null) return Content(HttpStatusCode.NotFound, $"The television id {id} was not found.");
+                if (televisionSearchResponseDto == null) return Content(HttpStatusCode.NotFound, $"The television id {id} was not found.");
 
-                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDTO, TelevisionSearchResponseViewModel>(televisionSearchResponseDTO);
+                var televisionSearchResponseViewModel = _mapper.Map<TelevisionSearchResponseDto, TelevisionSearchResponseViewModel>(televisionSearchResponseDto);
 
                 return Ok(televisionSearchResponseViewModel);
 
