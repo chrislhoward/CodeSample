@@ -7,6 +7,7 @@ using RestSharp;
 using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StrategyCorps.CodeSample.Models;
+using StrategyCorps.CodeSample.Core.Exceptions;
 
 namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 {
@@ -25,7 +26,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
 
         public TelevisionSearchResponseDTO GetTelevisionShowsByQuery(string query)
         {
-            if (string.IsNullOrWhiteSpace(query)) throw new Exception("search query is required");
+            if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException(nameof(query), "The search query is required.");
 
             var queryString = $"api_key={TheMovieDBApiKey}&query={query}";
 
@@ -43,6 +44,11 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                 var response = _restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
             }
+            catch (StrategyCorpsException strategyCorpsException)
+            {
+                _logger.Error(strategyCorpsException);
+                throw;
+            }
             catch (Exception exception)
             {
                 _logger.Error(exception);
@@ -50,25 +56,9 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
             }
         }
 
-        private TelevisionSearchResponseDTO MapGetTelevisionShowsResponse(IRestResponse response)
-        {
-            switch (response.StatusCode)
-            {
-                case HttpStatusCode.OK:
-                    var televisionSearchResponse  = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
-                    return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
-                case HttpStatusCode.NotFound:
-                    throw new Exception("Requested Resource is not found");
-                case HttpStatusCode.BadRequest:
-                default:
-                    _logger.Error("Problem calling The Movie Db");
-                    throw new Exception("Problem calling The Movie Db");
-            }
-        }
-
         public TelevisionSearchResponseDTO GetSimilarTelevisionShowsById(int id)
         {
-            if (id <= 0) throw new Exception("id is not correct");
+            if (id <= 0) throw new ArgumentException("The id  must be greater than 0.", nameof(id));
 
             var request = new RestRequest
             {
@@ -84,10 +74,30 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                 var response = _restClient.Execute(request);
                 return MapGetTelevisionShowsResponse(response);
             }
+            catch (StrategyCorpsException strategyCorpsException)
+            {
+                _logger.Error(strategyCorpsException);
+                throw;
+            }
             catch (Exception exception)
             {
                 _logger.Error(exception);
                 throw;
+            }
+        }
+
+        private TelevisionSearchResponseDTO MapGetTelevisionShowsResponse(IRestResponse response)
+        {
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    var televisionSearchResponse = JsonConvert.DeserializeObject<TelevisionSearchResponse>(response.Content);
+                    return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
+                case HttpStatusCode.NotFound:
+                    throw new StrategyCorpsException("Requested Resource is not found");
+                case HttpStatusCode.BadRequest:
+                default:
+                    throw new StrategyCorpsException("Problem calling The Movie Db");
             }
         }
     }

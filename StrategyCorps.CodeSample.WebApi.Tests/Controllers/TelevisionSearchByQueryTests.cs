@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using System.Web.Http;
 using System.Web.Http.Results;
 using AutoMapper;
 using ExpectedObjects;
 using FizzWare.NBuilder;
 using Moq;
 using NUnit.Framework;
-using StrategyCorps.CodeSample.Core;
 using StrategyCorps.CodeSample.Core.Exceptions;
 using StrategyCorps.CodeSample.Interfaces.Services;
 using StrategyCorps.CodeSample.Models;
@@ -16,12 +14,11 @@ using StrategyCorps.CodeSample.WebApi.Controllers;
 using StrategyCorps.CodeSample.WebApi.Tests.Extensions;
 using StrategyCorps.CodeSample.WebApi.ViewModels;
 using ILogger = NLog.ILogger;
-using StrategyCorps.CodeSample.Services;
 
 namespace StrategyCorps.CodeSample.WebApi.Tests.Controllers
 {
     [TestFixture]
-    public class TelevisionControllerTests
+    public class TelevisionSearchByQueryTests
     {
         [Test]
         [TestCase(null)]

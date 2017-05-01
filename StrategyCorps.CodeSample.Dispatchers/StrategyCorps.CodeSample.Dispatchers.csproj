@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StrategyCorps.CodeSample.Core\StrategyCorps.CodeSample.Core.csproj">
+      <Project>{1877F9F9-44C0-4041-808C-99E6BD65FD61}</Project>
+      <Name>StrategyCorps.CodeSample.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StrategyCorps.CodeSample.Interfaces.Core\StrategyCorps.CodeSample.Interfaces.Core.csproj">
       <Project>{688c285a-4b3f-4c20-a127-c33f2c677124}</Project>
       <Name>StrategyCorps.CodeSample.Interfaces.Core</Name>

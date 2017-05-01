@@ -8,7 +8,7 @@ namespace StrategyCorps.CodeSample.Core.Exceptions
         {
         }
 
-        protected StrategyCorpsException(string message)
+        public StrategyCorpsException(string message)
             : base(message)
         {
         }

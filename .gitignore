@@ -259,3 +259,16 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/StrategyCorps.CodeSample.WebApi
+/StrategyCorps.CodeSample.Services.Tests
+/StrategyCorps.CodeSample.Services
+/StrategyCorps.CodeSample.Respotiories.Tests
+/StrategyCorps.CodeSample.Repositories
+/StrategyCorps.CodeSample.Models
+/StrategyCorps.CodeSample.Interfaces.Services
+/StrategyCorps.CodeSample.Interfaces.Repositories
+/StrategyCorps.CodeSample.Interfaces.Dispatchers
+/StrategyCorps.CodeSample.Interfaces.Core
+/StrategyCorps.CodeSample.Entities/StrategyCorps.CodeSample.Entities.v3.ncrunchproject
+/StrategyCorps.CodeSample.Entities
+/StrategyCorps.CodeSample.Api.v3.ncrunchsolution
