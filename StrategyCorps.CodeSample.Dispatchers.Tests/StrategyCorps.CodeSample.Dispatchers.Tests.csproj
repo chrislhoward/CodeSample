@@ -76,6 +76,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MappingProfiles\TheMovieDbMappingProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\TheMovieDb\GetSimilarTelevisionShowsByIdTests.cs" />
     <Compile Include="Providers\TheMovieDb\GetTelevisionShowsByQueryTests.cs" />
@@ -84,9 +85,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MappingProfiles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\StrategyCorps.CodeSample.Core\StrategyCorps.CodeSample.Core.csproj">
       <Project>{1877F9F9-44C0-4041-808C-99E6BD65FD61}</Project>

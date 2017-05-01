@@ -95,7 +95,6 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                     return _mapper.Map<TelevisionSearchResponse, TelevisionSearchResponseDTO>(televisionSearchResponse);
                 case HttpStatusCode.NotFound:
                     throw new StrategyCorpsException("Requested Resource is not found");
-                case HttpStatusCode.BadRequest:
                 default:
                     throw new StrategyCorpsException("Problem calling The Movie Db");
             }

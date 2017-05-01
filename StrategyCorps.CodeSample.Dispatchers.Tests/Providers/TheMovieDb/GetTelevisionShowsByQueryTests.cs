@@ -66,10 +66,10 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
 
         [Test]
         [TestCase("Gotham")]
-        public void GetTelevisionShowsByQuery_When_RestClientReturnsBadRequest_Throws_StrategyCorpException(string query)
+        public void GetTelevisionShowsByQuery_When_RestClientReturnsNotFound_Throws_StrategyCorpException(string query)
         {
             var restResponse = Builder<RestResponse>.CreateNew()
-                                                    .With(x => x.StatusCode = HttpStatusCode.BadRequest).Build();
+                                                    .With(x => x.StatusCode = HttpStatusCode.NotFound).Build();
             _loggerMock.Setup(x => x.Error(It.IsAny<StrategyCorpsException>())).Verifiable();
             _restClientMock.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(restResponse).Verifiable();
             var theMovieDbDispatcher = new TheMovieDbDispatcher(_restClientMock.Object, _loggerMock.Object, null);
@@ -81,10 +81,10 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.Providers.TheMovieDb
 
         [Test]
         [TestCase("Gotham")]
-        public void GetTelevisionShowsByQuery_When_RestClientReturnsBadGateway_Throws_StrategyCorpException(string query)
+        public void GetTelevisionShowsByQuery_When_RestClientReturnsBadRequest_Throws_StrategyCorpException(string query)
         {
             var restResponse = Builder<RestResponse>.CreateNew()
-                                                    .With(x => x.StatusCode = HttpStatusCode.BadGateway).Build();
+                                                    .With(x => x.StatusCode = HttpStatusCode.BadRequest).Build();
             _loggerMock.Setup(x => x.Error(It.IsAny<StrategyCorpsException>())).Verifiable();
             _restClientMock.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(restResponse).Verifiable();
             var theMovieDbDispatcher = new TheMovieDbDispatcher(_restClientMock.Object, _loggerMock.Object, null);
