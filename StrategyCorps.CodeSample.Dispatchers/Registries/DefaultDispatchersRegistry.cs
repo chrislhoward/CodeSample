@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using System.Configuration;
+using RestSharp;
 using StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB;
 using StrategyCorps.CodeSample.Interfaces.Dispatchers;
 using StructureMap;
@@ -10,7 +11,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Registries
         public DefaultDispatchersRegistry()
         {
             For<IEntertainmentDispatcher>().Use<TheMovieDbDispatcher>();
-            For<IRestClient>().Use<RestClient>();
+            For<IRestClient>().Use(restClient => new RestClient(ConfigurationManager.AppSettings.Get("TheMovieDbBaseUrl")));
         }
     }
 }
