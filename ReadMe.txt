@@ -1,4 +1,5 @@
 
+
 Build a controller, service, and add a method on TheMovieDbDispatcher to call out to The Movie DB Api (https://developers.themoviedb.org/3/movies/get-movie-alternative-titles) 
 and retrieve Movie alternative titles. We have created A similar one for television shows. You can use that as an example to follow to build this.
 
@@ -9,3 +10,6 @@ in your browser window.
 
 The Movie DB Api Documentation:
 https://developers.themoviedb.org/3/movies
+
+Swagger:
+http://swagger.io/
