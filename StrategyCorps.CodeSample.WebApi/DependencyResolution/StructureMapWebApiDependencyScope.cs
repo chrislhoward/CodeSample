@@ -26,8 +26,24 @@ namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
     /// </summary>
     public class StructureMapWebApiDependencyScope : StructureMapDependencyScope, IDependencyScope
     {
+        private IContainer _container;
+
         public StructureMapWebApiDependencyScope(IContainer container)
-            : base(container) {
+            : base(container)
+        {
+            _container = container;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if(_container != null)
+                {
+                    _container.Dispose();
+                    _container = null;
+                }
+            }
         }
     }
 }

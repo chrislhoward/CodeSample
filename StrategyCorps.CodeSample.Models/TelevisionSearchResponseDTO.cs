@@ -4,7 +4,7 @@ namespace StrategyCorps.CodeSample.Models
 {
     public class TelevisionSearchResponseDto
     {
-        public IList<TelevisionResultDto> Results { get; set; }
+        public IList<TelevisionResultDto> Results { set; get; }
 
         public int Page { get; set; }
 

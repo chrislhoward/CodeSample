@@ -17,6 +17,7 @@
 
 using System.Web.Http.Dependencies;
 using StructureMap;
+#pragma warning disable 1591
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {
@@ -25,6 +26,8 @@ namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
     /// </summary>
     public class StructureMapWebApiDependencyResolver : StructureMapWebApiDependencyScope, IDependencyResolver
     {
+        private IContainer _container;
+
         #region Constructors and Destructors
 
         /// <summary>
@@ -36,6 +39,7 @@ namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
         public StructureMapWebApiDependencyResolver(IContainer container)
             : base(container)
         {
+            _container = container;
         }
 
         #endregion
@@ -52,6 +56,18 @@ namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
         {
             IContainer child = this.Container.GetNestedContainer();
             return new StructureMapWebApiDependencyResolver(child);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_container != null)
+                {
+                    _container.Dispose();
+                    _container = null;
+                }
+            }
         }
 
         #endregion
