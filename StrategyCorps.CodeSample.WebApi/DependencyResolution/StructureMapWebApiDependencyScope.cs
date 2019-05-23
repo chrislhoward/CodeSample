@@ -17,6 +17,7 @@
 
 using System.Web.Http.Dependencies;
 using StructureMap;
+#pragma warning disable 1591
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {

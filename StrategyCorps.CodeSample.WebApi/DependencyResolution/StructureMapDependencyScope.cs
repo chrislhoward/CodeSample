@@ -21,6 +21,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.Practices.ServiceLocation;
 using StructureMap;
+#pragma warning disable 1591
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution {
     /// <summary>

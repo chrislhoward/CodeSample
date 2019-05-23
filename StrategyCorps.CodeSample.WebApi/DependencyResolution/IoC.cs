@@ -17,6 +17,7 @@
 
 using StrategyCorps.CodeSample.Interfaces.Core;
 using StructureMap;
+#pragma warning disable 1591
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution {
     public static class IoC {

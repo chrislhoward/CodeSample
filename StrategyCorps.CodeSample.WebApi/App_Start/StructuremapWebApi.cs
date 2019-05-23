@@ -18,6 +18,7 @@
 using System.Web.Http;
 using StrategyCorps.CodeSample.WebApi;
 using StrategyCorps.CodeSample.WebApi.DependencyResolution;
+#pragma warning disable 1591
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 

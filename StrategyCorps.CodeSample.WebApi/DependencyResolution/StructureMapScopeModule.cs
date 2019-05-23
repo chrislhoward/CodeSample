@@ -1,5 +1,6 @@
 using System.Web;
 using StructureMap.Web.Pipeline;
+#pragma warning disable 1591
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution {
     public class StructureMapScopeModule : IHttpModule {

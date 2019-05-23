@@ -21,6 +21,7 @@ using StrategyCorps.CodeSample.WebApi;
 using StrategyCorps.CodeSample.WebApi.DependencyResolution;
 using StructureMap;
 using WebActivatorEx;
+#pragma warning disable 1591
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
