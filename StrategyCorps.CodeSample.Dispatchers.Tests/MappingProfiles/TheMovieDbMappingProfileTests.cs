@@ -32,7 +32,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
         [Test]
         public void DefaultMappingProfile_When_TelevisionSearchResponse_Returns_TelevisionSearchResponseDTO()
         {
-            var currentDateTime = DateTime.Now.;
+            var currentDateTime = DateTime.Now;
             var televisionResults = Builder<TelevisionResult>.CreateListOfSize(5).All()
                 .With(x => x.FirstAirDate = currentDateTime.ToString(CultureInfo.InvariantCulture)).Build().ToList();
             var televisionSearchResponse = Builder<TelevisionSearchResponse>.CreateNew()
