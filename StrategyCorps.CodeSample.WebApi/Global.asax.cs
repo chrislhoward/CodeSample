@@ -5,9 +5,13 @@ using System.Web.Routing;
 
 namespace StrategyCorps.CodeSample.WebApi
 {
+#pragma warning disable 1591
     public class WebApiApplication : System.Web.HttpApplication
+#pragma warning restore 1591
     {
+#pragma warning disable 1591
         protected void Application_Start()
+#pragma warning restore 1591
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

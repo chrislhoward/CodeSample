@@ -27,10 +27,14 @@ using StructureMap.TypeRules;
 
 namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
 {
+#pragma warning disable 1591
     public class DefaultWebApiRegistry : Registry {
+#pragma warning restore 1591
         #region Constructors and Destructors
 
+#pragma warning disable 1591
         public DefaultWebApiRegistry() {
+#pragma warning restore 1591
             Scan(
                 scan => {
                     scan.WithDefaultConventions();
@@ -60,7 +64,9 @@ namespace StrategyCorps.CodeSample.WebApi.DependencyResolution
             For<IMapper>().Use(mapper);
         }
 
+#pragma warning disable 1591
         public void ScanTypes(TypeSet types, Registry registry)
+#pragma warning restore 1591
         {
             foreach (var type in types.AllTypes())
             {

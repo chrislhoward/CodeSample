@@ -2,10 +2,15 @@
 
 namespace StrategyCorps.CodeSample.WebApi
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class BundleConfig
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+#pragma warning disable 1591
         public static void RegisterBundles(BundleCollection bundles)
+#pragma warning restore 1591
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
