@@ -82,5 +82,44 @@ namespace StrategyCorps.CodeSample.Dispatchers.Tests.MappingProfiles
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }
 
+        [Test]
+        public void DefaultMappingProfile_When_AlternativeTitlesResponse_Returns_AlternativeTitlesResponseDTO()
+        {
+
+            var titleResults = Builder<TitleResult>.CreateListOfSize(5).All().Build().ToList();
+
+            var alternativeTitlesResponse = Builder<AlternativeTitlesResponse>.CreateNew().With(x => x.Titles = titleResults).Build();
+
+            var titleResultsDto = titleResults.Select(titleResult => new TitleResultDto
+            {
+                Title = titleResult.Title,
+                Iso_3166_1 = titleResult.Iso_3166_1,
+                Type = titleResult.Type
+            }).ToList();
+
+            var expectedResult = Builder<AlternativeTitlesResponseDto>.CreateNew()
+                                                                   .With(x => x.Id = alternativeTitlesResponse.Id)
+                                                                   .With(x => x.Titles = titleResultsDto)
+                                                                   .Build();
+
+            var actualResult = _mapper.Map<AlternativeTitlesResponse, AlternativeTitlesResponseDto>(alternativeTitlesResponse);
+
+            actualResult.ToExpectedObject().ShouldEqual(expectedResult);
+        }
+
+        [Test]
+        public void DefaultMappingProfile_When_TitleResult_Returns_TitleResultDTO()
+        {
+            var titleResult = Builder<TitleResult>.CreateNew().Build();
+            var expectedResult = Builder<TitleResultDto>.CreateNew()
+                                                                   .With(x => x.Iso_3166_1 = titleResult.Iso_3166_1)
+                                                                   .With(x => x.Title = titleResult.Title)
+                                                                   .With(x => x.Type = titleResult.Type)
+                                                                   .Build();
+
+            var actualResult = _mapper.Map<TitleResult, TitleResultDto>(titleResult);
+
+            actualResult.ToExpectedObject().ShouldEqual(expectedResult);
+        }
     }
 }

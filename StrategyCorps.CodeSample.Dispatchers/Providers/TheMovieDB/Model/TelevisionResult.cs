@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB.Model
 {

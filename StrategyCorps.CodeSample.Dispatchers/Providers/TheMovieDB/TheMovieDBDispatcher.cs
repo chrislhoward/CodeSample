@@ -72,7 +72,7 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
         /// <exception cref="Exception"></exception>
         public TelevisionSearchResponseDto GetSimilarTelevisionShowsById(int id)
         {
-            if (id <= 0) throw new ArgumentException("The id  must be greater than 0.", nameof(id));
+            if (id <= 0) throw new ArgumentException("The id must be greater than 0.", nameof(id));
 
             IRestResponse response;
 
@@ -117,5 +117,63 @@ namespace StrategyCorps.CodeSample.Dispatchers.Providers.TheMovieDB
                     throw new StrategyCorpsException("There was a problem calling The Movie Db.", ErrorCode.Unknown, null);
             }
         }
+
+
+        /// <summary>
+        /// Gets alternative titles for the movie whose id is passed in.
+        /// </summary>
+        /// <param name="id">The id of the movie to retrieve alternative titles for. </param>
+        /// <returns cref="AlternativeTitlesResponseDto"></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="StrategyCorpsException"></exception>
+        /// <exception cref="Exception"></exception>
+        public AlternativeTitlesResponseDto GetAlternativeMovieTitlesById(int id)
+        {
+            if (id <= 0) throw new ArgumentException("The id must be greater than 0.", nameof(id));
+
+            IRestResponse response;
+
+            var request = new RestRequest
+            {
+                Method = Method.GET,
+                Resource = $"3/movie/{id}/alternative_titles?api_key={TheMovieDbApiKey}",
+                RequestFormat = DataFormat.Json
+            };
+
+            try
+            {
+                _restClient.BaseUrl = new Uri(TheMovieDbBaseUrl);
+
+                response = _restClient.Execute(request);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception);
+                throw;
+            }
+
+            return MapAlternativeTitlesResponse(response);
+        }
+
+        /// <summary>
+        /// Maps the rest response from the get alternative titles request
+        /// </summary>
+        /// <param name="response" cref="IRestResponse">The rest response from the rest request. </param>
+        /// <returns cref="AlternativeTitlesResponseDto"></returns>
+        /// <exception cref="StrategyCorpsException"></exception>
+        private AlternativeTitlesResponseDto MapAlternativeTitlesResponse(IRestResponse response)
+        {
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    AlternativeTitlesResponse alternativeTitlesResponse = JsonConvert.DeserializeObject<AlternativeTitlesResponse>(response.Content);
+                    return _mapper.Map<AlternativeTitlesResponse, AlternativeTitlesResponseDto>(alternativeTitlesResponse);
+                case HttpStatusCode.NotFound:
+                    return null;
+                default:
+                    throw new StrategyCorpsException("There was a problem calling The Movie Db.", ErrorCode.Unknown, null);
+            }
+        }
+
     }
 }

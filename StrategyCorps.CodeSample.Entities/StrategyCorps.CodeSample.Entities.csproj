@@ -51,6 +51,7 @@
     <Compile Include="CodeSampleDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimilarTelevisionShowEntity.cs" />
+    <Compile Include="AlternativeMovieTitleEntity.cs" />
     <Compile Include="TelevisionShowEntity.cs" />
   </ItemGroup>
   <ItemGroup>

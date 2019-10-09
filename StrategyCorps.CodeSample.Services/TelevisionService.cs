@@ -32,5 +32,15 @@ namespace StrategyCorps.CodeSample.Services
         {
             return _entertainmentDispatcher.GetSimilarTelevisionShowsById(id);
         }
+
+        /// <summary>
+        /// Gets alternative titles for the movie whose id is passed in.
+        /// </summary>
+        /// <param name="id">The id of the movie used to retrieve alternative titles.</param>
+        /// <returns cref="AlternativeTitlesResponseDto"></returns>
+        public AlternativeTitlesResponseDto GetAlternativeMovieTitlesById(int id)
+        {
+            return _entertainmentDispatcher.GetAlternativeMovieTitlesById(id);
+        }
     }
 }

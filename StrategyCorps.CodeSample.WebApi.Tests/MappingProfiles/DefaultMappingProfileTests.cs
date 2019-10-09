@@ -78,5 +78,45 @@ namespace StrategyCorps.CodeSample.WebApi.Tests.MappingProfiles
 
             actualResult.ToExpectedObject().ShouldEqual(expectedResult);
         }
+
+        [Test]
+        public void DefaultMappingProfile_When_TitleResultDTO_Returns_TitleResultViewModel()
+        {
+            var titleResultDto = Builder<TitleResultDto>.CreateNew().Build();
+            var expectedResult = Builder<TitleResultViewModel>.CreateNew()
+                .With(x => x.Iso_3166_1 = titleResultDto.Iso_3166_1)
+                .With(x => x.Title = titleResultDto.Title)
+                .With(x => x.Type = titleResultDto.Type)
+                .Build();
+
+            var actualResult = _mapper.Map<TitleResultDto, TitleResultViewModel>(titleResultDto);
+
+            actualResult.ToExpectedObject().ShouldEqual(expectedResult);
+        }
+
+        [Test]
+        public void DefaultMappingProfile_When_AlternativeTitlesResponseDTO_Returns_AlternativeTitlesResponseViewModel()
+        {
+
+            var titleResults = Builder<TitleResultDto>.CreateListOfSize(5).All().Build().ToList();
+
+            var alternativeTitlesResponse = Builder<AlternativeTitlesResponseDto>.CreateNew().With(x => x.Titles = titleResults).Build();
+
+            var titleResultsDto = titleResults.Select(titleResult => new TitleResultViewModel
+            {
+                Title = titleResult.Title,
+                Iso_3166_1 = titleResult.Iso_3166_1,
+                Type = titleResult.Type
+            }).ToList();
+
+            var expectedResult = Builder<AlternativeTitlesResponseViewModel>.CreateNew()
+                                                                   .With(x => x.Id = alternativeTitlesResponse.Id)
+                                                                   .With(x => x.Titles = titleResultsDto)
+                                                                   .Build();
+
+            var actualResult = _mapper.Map<AlternativeTitlesResponseDto, AlternativeTitlesResponseViewModel>(alternativeTitlesResponse);
+
+            actualResult.ToExpectedObject().ShouldEqual(expectedResult);
+        }
     }
 }
